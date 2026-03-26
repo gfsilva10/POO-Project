@@ -1,84 +1,74 @@
 package org.example.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
 
-<<<<<<< HEAD:src/main/java/org/example/model/PlaylistFavs.Java
+/**
+ * Class that represents a Favorites playlist.
+ */
 public class PlaylistFavs extends Playlist {
-    //------------------------------------------------------------------------------------------------
-    // Atributos
-    //------------------------------------------------------------------------------------------------
-=======
-public class PlaylistFavs extends Playlist implements Serializable {
-    private static final long serialVersionUID = 1L;
->>>>>>> 3c282de (data and main):src/main/java/org/example/model/PlaylistFavs.java
-    private User user;
 
-    //------------------------------------------------------------------------------------------------
-    // Construtores
-    //------------------------------------------------------------------------------------------------
+    /**
+     * Default constructor for Favorites playlist.
+     */
     public PlaylistFavs() {
         super();
-        this.user = null; // Inicializa o utilizador como nulo
-    }
-    public PlaylistFavs(User user) {
-        super(); // Chama o construtor da superclasse Playlist
-        this.user = user; // Inicializa o utilizador
-    }
-    public PlaylistFavs(User user, List<Music> musics) {
-        super(musics); // Chama o construtor da superclasse Playlist com a lista de músicas
-        this.user = user; // Inicializa o utilizador
-    }
-    public PlaylistFavs(PlaylistFavs playlist) {
-        super(playlist); // Chama o construtor da superclasse Playlist com a lista de músicas
-        this.user = playlist.user != null ? playlist.user.clone() : null; // Clona o utilizador, se não for nulo
-    }
-    
-    //------------------------------------------------------------------------------------------------
-    // Gets e Sets
-    //------------------------------------------------------------------------------------------------
-    public User getUser() {
-        return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    /**
+     * Constructor for Favorites playlist with name, musics, and public flag.
+     * @param name Playlist name
+     * @param musics List of musics
+     * @param isPublic Whether the playlist is public
+     */
+    public PlaylistFavs(String name, List<Music> musics, boolean isPublic) {
+        super(name, musics, isPublic);
     }
 
-    //------------------------------------------------------------------------------------------------
-    //  toString/equals/clone
-    //------------------------------------------------------------------------------------------------
+    /**
+     * Copy constructor for Favorites playlist.
+     * @param playlist Playlist to be copied
+     */
+    public PlaylistFavs(Playlist playlist) {
+        super(playlist);
+    }
+
+    /**
+     * Gets the playlist type.
+     * @return Playlist type ("Favorites")
+     */
+    @Override
+    public String getPlaylistType() {
+        return "Favorites";
+    }
+
+    /**
+     * Returns a string representation of the Favorites playlist.
+     * @return String with playlist information
+     */
     @Override
     public String toString() {
-    return "PlaylistFavs{" +
-            "user=" + user.getName() + // Exibe o nome do utilizador
-            ", musics=" + musics +
-            '}';
+        return super.toString() + "Playlist Type: Favorites";
     }
-    
-    @Override
-    public boolean equals(Object o) {
-    if (this == o) return true; // Verifica se é o mesmo objeto
-    if (!(o instanceof PlaylistFavs)) return false; // Verifica se o objeto é do tipo PlaylistFavs
-    PlaylistFavs that = (PlaylistFavs) o;
-    return user.equals(that.user) && musics.equals(that.musics);
-}
 
+    /**
+     * Checks if two Favorites playlists are equal.
+     * @param obj Object to compare
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        return true;
+    }
+
+    /**
+     * Creates a copy of the Favorites playlist.
+     * @return New PlaylistFavs object (clone)
+     */
     @Override
     public Playlist clone() {
-        // Cria uma nova instância de PlaylistFavs com uma cópia do utilizador e da lista de músicas
-        return new PlaylistFavs(
-            this.user != null ? this.user.clone() : null, // Clona o utilizador, se não for nulo
-            new ArrayList<>(this.musics) // Cria uma cópia da lista de músicas
-        );
+        return new PlaylistFavs(this);
     }
-    /* 
-    public boolean isGeneratedForPremiumUser() {
-        return user != null && user.isPremium(); // Verifica se o utilizador é premium
-    } */
 
-    //------------------------------------------------------------------------------------------------
-    // Outros métodos
-    //------------------------------------------------------------------------------------------------
 }

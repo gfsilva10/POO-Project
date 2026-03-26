@@ -1,69 +1,63 @@
 package org.example.model;
 
-<<<<<<< HEAD
-public abstract class Plan {
-    //------------------------------------------------------------------------------------------------
-    // Atributos
-    //------------------------------------------------------------------------------------------------
-=======
 import java.io.Serializable;
 
+/**
+ * Abstract class that represents a subscription plan.
+ */
 public abstract class Plan implements Serializable {
-    private static final long serialVersionUID = 1L;
 
->>>>>>> 3c282de (data and main)
-    protected String name;
-
-    //------------------------------------------------------------------------------------------------
-    // Construtores
-    //------------------------------------------------------------------------------------------------
+    /**
+     * Default constructor for the plan.
+     */
     public Plan() {
-        this.name = "";
-    }
-   
-    public Plan(String name) {
-        this.name = name;
+        // Default constructor
     }
 
+    /**
+     * Copy constructor for the plan.
+     * @param plan Plan to be copied
+     */
     public Plan(Plan plan) {
-        this.name = plan.name;
+        // Copy constructor
     }
 
-    //------------------------------------------------------------------------------------------------
-    // Gets e Sets
-    //------------------------------------------------------------------------------------------------
-    public String getName() {
-        return name;
-    }
+    /**
+     * Gets the plan type.
+     * @return Plan type
+     */
+    public abstract String getPlanType();
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    //------------------------------------------------------------------------------------------------
-    //  toString/equals/clone
-    //------------------------------------------------------------------------------------------------
-    @Override
+    /**
+     * Returns a string representation of the plan.
+     * @return String with plan information
+     */
     public String toString() {
-        return "Plan{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Plan Type: " + getPlanType();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Plan)) return false;
-        Plan plan = (Plan) o;
-        return name.equals(plan.name);
+    /**
+     * Checks if two plans are equal.
+     * @param obj Object to compare
+     * @return true if equal, false otherwise
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        Plan plan = (Plan) obj;
+        return getPlanType().equals(plan.getPlanType());
     }
-<<<<<<< HEAD
 
+    /**
+     * Creates a copy of the plan.
+     * @return New Plan object (clone)
+     */
     public abstract Plan clone();
 
-    //------------------------------------------------------------------------------------------------
-    // Outros métodos
-    //------------------------------------------------------------------------------------------------
-=======
->>>>>>> 3c282de (data and main)
+    /**
+     * Calculates the updated points according to the plan.
+     * @param points Current points
+     * @return Updated points
+     */
+    public abstract int getUpdatedPoints(int points);
 }

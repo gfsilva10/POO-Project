@@ -1,71 +1,73 @@
 package org.example.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class PlaylistRandom extends Playlist implements Serializable {
-    private static final long serialVersionUID = 1L;
+/**
+ * Class that represents a Random playlist.
+ */
+public class PlaylistRandom extends Playlist {
 
-    //------------------------------------------------------------------------------------------------
-    // Atributos
-    //------------------------------------------------------------------------------------------------
-
-    
-    //-------------------------------------------------------------------------------------------------
-    // Construtores
-    //-------------------------------------------------------------------------------------------------
+    /**
+     * Default constructor for Random playlist.
+     */
     public PlaylistRandom() {
         super();
     }
 
-    // Construtor com lista de músicas
-    public PlaylistRandom(List<Music> musics) {
-        super(musics);
-        shufflePlaylist(); // Embaralha a ordem das músicas
+    /**
+     * Constructor for Random playlist with name, musics, and public flag.
+     * @param name Playlist name
+     * @param musics List of musics
+     * @param isPublic Whether the playlist is public
+     */
+    public PlaylistRandom(String name, List<Music> musics, boolean isPublic) {
+        super(name, musics, isPublic);
+    } // only for testing
+
+    /**
+     * Copy constructor for Random playlist.
+     * @param playlist Playlist to be copied
+     */
+    public PlaylistRandom(Playlist playlist) {
+        super(playlist);
     }
-    
-    // Sobrescreve o método setMusics para impedir modificações externas
+
+    /**
+     * Gets the playlist type.
+     * @return Playlist type ("Random")
+     */
     @Override
-    public void setMusics(List<Music> musics) {
-        throw new UnsupportedOperationException("A playlist aleatória não pode ser modificada.");
+    public String getPlaylistType() {
+        return "Random";
     }
 
-    // Sobrescreve o método getMusics para retornar a lista na ordem atual
-    @Override
-    public List<Music> getMusics() {
-        return new ArrayList<>(this.musics); // Retorna uma cópia da lista embaralhada
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-    if (this == o) return true; // Verifica se é o mesmo objeto
-    if (!(o instanceof PlaylistRandom)) return false; // Verifica se o objeto é do tipo PlaylistRandom
-    PlaylistRandom that = (PlaylistRandom) o;
-
-    // Compara as listas de músicas, ignorando a ordem
-    return this.musics.size() == that.musics.size() &&
-           this.musics.containsAll(that.musics) &&
-           that.musics.containsAll(this.musics);
-}
-
+    /**
+     * Returns a string representation of the Random playlist.
+     * @return String with playlist information
+     */
     @Override
     public String toString() {
-        return "PlaylistRandom{" +
-                "musics=" + musics +
-                '}';
+        return super.toString() + "Playlist Type: Random\n---------------------------------\n";
     }
 
+    /**
+     * Checks if two Random playlists are equal.
+     * @param obj Object to compare
+     * @return true if equal, false otherwise
+     */
     @Override
-    public PlaylistRandom clone() {
-        // Cria uma nova instância de PlaylistRandom com uma cópia da lista de músicas
-        return new PlaylistRandom(new ArrayList<>(this.musics));
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        return true;
     }
 
-        // Método para embaralhar a ordem das músicas
-    private void shufflePlaylist() {
-            Collections.shuffle(this.musics); // Embaralha a lista de músicas
-        }
+    /**
+     * Creates a copy of the Random playlist.
+     * @return New PlaylistRandom object (clone)
+     */
+    @Override
+    public Playlist clone() {
+        return new PlaylistRandom(this);
+    }
 }
